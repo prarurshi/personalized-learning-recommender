@@ -12,6 +12,15 @@ pip install -r requirements.txt
 python main.py
 ```
 
+**Web UI (Streamlit):**
+```bash
+streamlit run streamlit_app.py      # opens http://localhost:8501
+```
+The UI has tabs for Recommendations (with ⭐ rating), Search, Learning Path, Browse & Similar, My Profile and Evaluation (with a chart). Profiles are created and logged into from the sidebar.
+
+**Free online hosting:** go to [share.streamlit.io](https://share.streamlit.io), click **Create app**, choose this repo, set branch `main` and main file `streamlit_app.py`, then **Deploy**.
+Note: on Streamlit Cloud, profiles and ratings you add are reset whenever the app restarts.
+
 `data/ratings.csv` is already included. To rebuild it: `python scripts/generate_ratings.py`.
 
 ## Features
@@ -56,7 +65,8 @@ Hybrid and content-based filtering are about 6–7× better than random. The com
 
 ```
 learning_recommender/
-├── main.py                  # entry point
+├── main.py                  # CLI entry point
+├── streamlit_app.py         # web UI entry point
 ├── requirements.txt
 ├── data/
 │   ├── resources.csv        # 58 learning resources (catalogue)
@@ -74,9 +84,9 @@ learning_recommender/
 └── scripts/generate_ratings.py
 ```
 
-## Next step: UI
+## Design note
 
-The `recommender` package does not depend on the CLI. A UI (for example Streamlit) only needs to call the same methods:
+The `recommender` package does not depend on any interface. The CLI (`main.py`) and the web UI (`streamlit_app.py`) both call the same methods:
 `RecommenderEngine.recommend()`, `search()`, `learning_path()`, `similar_resources()`, `add_rating()` and `evaluate()`.
 
 > Note: resource metadata (hours, ratings, cost) is approximate sample data for demonstration only.
